@@ -436,7 +436,8 @@ function vPaneDirective ($timeout, $animate, accordionConfig) {
         scope.isDisabled = true;
       }
 
-      var states = accordionConfig.states;
+      var states = accordionConfig.states,
+          isInactive = angular.isDefined(iAttrs.inactive);
 
       var paneHeader = iElement.find('v-pane-header'),
           paneContent = iElement.find('v-pane-content'),
@@ -471,7 +472,7 @@ function vPaneDirective ($timeout, $animate, accordionConfig) {
         paneContent[0].style.maxHeight = '0px';
         paneHeader.attr({
           'aria-selected': 'true',
-          'tabindex': '0'
+          'tabindex': isInactive ? '-1' : '0'
         });
 
         emitEvent('onExpand');
@@ -520,7 +521,7 @@ function vPaneDirective ($timeout, $animate, accordionConfig) {
 
         paneHeader.attr({
           'aria-selected': 'true',
-          'tabindex': '0'
+          'tabindex': isInactive ? '-1' : '0'
         });
       } else {
         paneContent[0].style.maxHeight = '0px';
